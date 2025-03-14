@@ -3,222 +3,137 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ROCK PAPER SCISSORS</title>
+    <title>Tic Tac Toe</title>
     <style>
         body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
             font-family: Arial, sans-serif;
-            text-align: center;
-            background-color: #632caf;
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh
-            padding: 20px;
+            background-color: #2d1e2f;
+            color: #ff007f;
         }
-
         .container {
-            background: #7f6b96;
-            padding: 20px;
-            width: 90%; 
-            max-width: 300px;
-            box-shadow: 0px 0px 10px #717ba5;
-            border-radius: 30px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-top: 60px;
-        }
-
-        h3 {
-            font-size: 24px;
-            color:black;
-            margin-bottom: 10px;
-        }
-
-        .button-group {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin: 20px 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            font-size: 40px;
-            padding: 15px;
-            border: 2px solid rgb(226, 218, 218);
-            background:rgb(22, 22, 22);
-            border-radius: 50%;
-            cursor: pointer;
-            transition: transform 0.2s ease, background 0.3s;
-        }
-`
-        .btn:hover {
-            transform: scale(1.1);
-            background:white;
-        }
-
-        .score-table, .score-board {
-            margin: 20px auto;
-            width: 100%;
-            max-width: 300px;
-            border-collapse: collapse;
-        }
-
-        .score-table td, .score-board td {
-            padding: 10px;
-            border: 1px solid black;
-            font-size: 20px;
-            background:#e7e4e5 ;
-            column-gap: 10px;
             text-align: center;
-            
+            background: #3b2e4a;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0px 4px 15px rgba(255, 0, 127, 0.4);
+            width: 320px;
         }
-        .score-table p {
-        font-size: 50px; 
-        margin: 0;
-        background-color: ;
-    }
-
-        .reset-btn {
-            padding: 10px 30px;
-            font-size: 16px;
-            border: none;
-            background: rgb(213, 211, 211);
-            color: rgb(27, 24, 24);
+        #status {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: #ff007f;
+            font-weight: bold;
+        }
+        table {
+            border-collapse: collapse;
+            margin: 20px auto;
+        }
+        td {
+            width: 70px;
+            height: 70px;
+            text-align: center;
+            font-size: 28px;
             cursor: pointer;
-            transition: background 0.3s;
-            border-radius: 20px;
-            margin-top: 15px;
+            border: 2px solid #ff007f;
+            color: #ffffff;
+            transition: all 0.3s ease-in-out;
+            background: #4b3a5a;
         }
-
-        .reset-btn:hover {
-            background:  rgb(161, 209, 161);
+        td:hover {
+            background-color: #ff007f50;
+            box-shadow: 0 0 8px #ff007f;
         }
-        @media (max-width: 480px) {
-        .btn {
-        font-size: 24px;
-        padding: 10px;
+        button {
+            padding: 12px 18px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            background-color: #ff007f;
+            color: #3b2e4a;
+            font-weight: bold;
+            border-radius: 5px;
+            margin-top: 20px;
+            transition: background 0.3s, transform 0.2s;
         }
-
-        h3 {
-        font-size: 20px;
+        button:hover {
+            background-color: #cc0066;
+            transform: scale(1.05);
         }
-
-        .score-table td, .score-board td {
-        font-size: 16px;
-        padding: 8px;
-        }
-
-        .reset-btn {
-        font-size: 14px;
-        padding: 8px 16px;
-        }
-    }
     </style>
 </head>
 <body>
     <div class="container">
-        <h3>ROCK PAPER SCISSORS</h3>
-        <div class="button-group">
-            <button class="btn" onclick="play('Rock')">✊</button>
-            <button class="btn" onclick="play('Paper')">✋</button>
-            <button class="btn" onclick="play('Scissors')">✌</button>
-        </div>
-        <p id="game-result">-</p>
-        <table class="score-table">
+        <h2>Tic Tac Toe</h2>
+        <h2 id="status">Player X's Turn</h2>
+        <table>
             <tr>
-                <td>You</td>
-                <td>Computer</td>
+                <td onclick="play(this, 0)" class="cell"></td>
+                <td onclick="play(this, 1)" class="cell"></td>
+                <td onclick="play(this, 2)" class="cell"></td>
             </tr>
             <tr>
-                <td><p id="user-choice">-</p></td>
-                <td><p id="computer-choice">-</p></td>
+                <td onclick="play(this, 3)" class="cell"></td>
+                <td onclick="play(this, 4)" class="cell"></td>
+                <td onclick="play(this, 5)" class="cell"></td>
             </tr>
-        </table>
-        <table class="score-board">
             <tr>
-                <td id="wins">Wins: 0</td>
-                <td id="losses">Losses: 0</td>
-                <td id="ties">Ties: 0</td>
+                <td onclick="play(this, 6)" class="cell"></td>
+                <td onclick="play(this, 7)" class="cell"></td>
+                <td onclick="play(this, 8)" class="cell"></td>
             </tr>
         </table>
-        <button class="reset-btn" onclick="resetGame()">Reset</button>
+        <button onclick="reset()">Reset</button>
     </div>
 
     <script>
-        let wins = 0, losses = 0, ties = 0, matches = 0;
+        let player = 'X'
+        const cells = document.getElementsByClassName('cell')
+        const status = document.getElementById('status')
 
-        const emojiMap = {
-            "Rock": "✊",
-            "Paper": "✋",
-            "Scissors": "✌"
-        };
-
-        function play(userChoice) {
-            let compChoice = getRandom();
-            document.getElementById('user-choice').innerHTML = emojiMap[userChoice]; 
-            document.getElementById('computer-choice').innerHTML = emojiMap[compChoice]; 
-
-            let resultText = '';
-            if (
-                (userChoice === 'Rock' && compChoice === 'Scissors') || 
-                (userChoice === 'Paper' && compChoice === 'Rock') || 
-                (userChoice === 'Scissors' && compChoice === 'Paper')
-            ) {
-                resultText = 'You Win!';
-                wins++;
-            } else if (userChoice === compChoice) {
-                resultText = "It's a Tie!";
-                ties++;
-            } else {
-                resultText = 'You Lose!';
-                losses++;
-            }
-            
-            matches++;
-            
-            document.getElementById('game-result').innerHTML = resultText;
-            document.getElementById('wins').innerHTML = Wins: ${wins};
-            document.getElementById('losses').innerHTML = Losses: ${losses};
-            document.getElementById('ties').innerHTML = Ties: ${ties};
-
-            if (matches === 5) {
-                setTimeout(() => {
-                    if (wins > losses) {
-                        alert('🏆 You win the match!');
-                    } else if (losses > wins) {
-                        alert('😞 You lost the match!');
-                    } else {
-                        alert('🤝 It\'s a tie!');
-                    }
-                    resetGame();
-                }, 300);
+        function play(obj, i) {
+            if (obj.innerHTML === '') {
+                obj.innerHTML = player
+                if (checkWin(player)) {
+                    status.innerHTML = `${player} Wins!`
+                    setTimeout(reset, 1500)
+                    return
+                }
+                if (filled()) {
+                    status.innerHTML = "It's a Draw!"
+                    setTimeout(reset, 1500)
+                    return
+                }
+                player = (player === 'X') ? 'O' : 'X'
+                status.innerHTML = `Player ${player}'s Turn`
             }
         }
 
-        function resetGame() {
-            wins = 0;
-            losses = 0;
-            ties = 0;
-            matches = 0;
+        function checkWin(player) {
+            const winPatterns = [
+                [0, 1, 2], [3, 4, 5], [6, 7, 8], 
+                [0, 3, 6], [1, 4, 7], [2, 5, 8], 
+                [0, 4, 8], [2, 4, 6]            
+            ]
 
-            document.getElementById('wins').innerHTML = Wins: ${wins};
-            document.getElementById('losses').innerHTML = Losses: ${losses};
-            document.getElementById('ties').innerHTML = Ties: ${ties};
-
-            document.getElementById('game-result').innerHTML = '-';
-            document.getElementById('user-choice').innerHTML = '-';
-            document.getElementById('computer-choice').innerHTML = '-';
+            return winPatterns.some(pattern =>
+                pattern.every(index => cells[index].innerHTML === player)
+            )
         }
 
-        function getRandom() {
-            let choices = ['Rock', 'Paper', 'Scissors'];
-            return choices[Math.floor(Math.random() * choices.length)];
+        function filled() {
+            return [...cells].every(cell => cell.innerHTML !== '')
+        }
+
+        function reset() {
+            for (let cell of cells) {
+                cell.innerHTML = ''
+            }
+            player = 'X'
+            status.innerHTML = `Player X's Turn`
         }
     </script>
 </body>
