@@ -3,137 +3,193 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tic Tac Toe</title>
+    <title>ROCK PAPER SCISSORS</title>
     <style>
         body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #1b1f3b;
+            margin: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            font-family: Arial, sans-serif;
-            background-color: #2d1e2f;
-            color: #ff007f;
+            padding: 20px;
         }
+
         .container {
-            text-align: center;
-            background: #3b2e4a;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0px 4px 15px rgba(255, 0, 127, 0.4);
-            width: 320px;
+            background: #4c99d8;
+            padding: 20px;
+            width: 90%; 
+            max-width: 400px; 
+            box-shadow: 0px 0px 10px #155faa;
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 60px;
+            margin-bottom: 70px;
         }
-        #status {
+
+        h3 {
             font-size: 24px;
-            margin-bottom: 15px;
-            color: #ff007f;
-            font-weight: bold;
+            color: white;
+            margin-bottom: 10px;
         }
-        table {
-            border-collapse: collapse;
+
+        .button-group {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            font-size: 40px;
+            padding: 15px;
+            border: 2px solid white;
+            background: #0f3460;
+            color: white;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: transform 0.2s ease, background 0.3s;
+        }
+
+        .btn:hover {
+            transform: scale(1.1);
+            background: #22d1ee;
+            color: black;
+        }
+
+        .score-table, .score-board {
             margin: 20px auto;
+            width: 100%;
+            max-width: 300px;
+            border-collapse: collapse;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
-        td {
-            width: 70px;
-            height: 70px;
+
+        .score-table td, .score-board td {
+            padding: 10px;
+            border: 1px solid white;
+            font-size: 20px;
+            background: #0f3460;
+            color: white;
             text-align: center;
-            font-size: 28px;
-            cursor: pointer;
-            border: 2px solid #ff007f;
-            color: #ffffff;
-            transition: all 0.3s ease-in-out;
-            background: #4b3a5a;
         }
-        td:hover {
-            background-color: #ff007f50;
-            box-shadow: 0 0 8px #ff007f;
+
+        .score-table p {
+            font-size: 50px;
+            margin: 0;
         }
-        button {
-            padding: 12px 18px;
+
+        .reset-btn {
+            padding: 10px 30px;
             font-size: 16px;
-            cursor: pointer;
             border: none;
-            background-color: #ff007f;
-            color: #3b2e4a;
-            font-weight: bold;
-            border-radius: 5px;
-            margin-top: 20px;
-            transition: background 0.3s, transform 0.2s;
+            background: #ff6b6b;
+            color: white;
+            cursor: pointer;
+            transition: background 0.3s;
+            border-radius: 20px;
+            margin-top: 15px;
         }
-        button:hover {
-            background-color: #cc0066;
-            transform: scale(1.05);
+
+        .reset-btn:hover {
+            background: #ee5253;
+        }
+
+        @media (max-width: 480px) {
+            .button-group {
+                flex-direction: column;
+                align-items: center;
+            }
+            .btn {
+                font-size: 30px;
+                padding: 12px;
+            }
+            h3 {
+                font-size: 20px;
+            }
+            .score-table td, .score-board td {
+                font-size: 16px;
+                padding: 8px;
+            }
+            .reset-btn {
+                font-size: 14px;
+                padding: 8px 16px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h2>Tic Tac Toe</h2>
-        <h2 id="status">Player X's Turn</h2>
-        <table>
+        <h3>ROCK PAPER SCISSORS</h3>
+        <div class="button-group">
+            <button class="btn" onclick="play('Rock')">✊</button>
+            <button class="btn" onclick="play('Paper')">✋</button>
+            <button class="btn" onclick="play('Scissors')">✌</button>
+        </div>
+        <p id="game-result">-</p>
+        <table class="score-table">
             <tr>
-                <td onclick="play(this, 0)" class="cell"></td>
-                <td onclick="play(this, 1)" class="cell"></td>
-                <td onclick="play(this, 2)" class="cell"></td>
+                <td>You</td>
+                <td>Computer</td>
             </tr>
             <tr>
-                <td onclick="play(this, 3)" class="cell"></td>
-                <td onclick="play(this, 4)" class="cell"></td>
-                <td onclick="play(this, 5)" class="cell"></td>
-            </tr>
-            <tr>
-                <td onclick="play(this, 6)" class="cell"></td>
-                <td onclick="play(this, 7)" class="cell"></td>
-                <td onclick="play(this, 8)" class="cell"></td>
+                <td><p id="user-choice" style="font-size: 50px;">-</p></td>
+                <td><p id="computer-choice" style="font-size: 50px;">-</p></td>
             </tr>
         </table>
-        <button onclick="reset()">Reset</button>
+        <table class="score-board">
+            <tr>
+                <td id="wins">Wins: 0</td>
+                <td id="losses">Losses: 0</td>
+                <td id="ties">Ties: 0</td>
+            </tr>
+        </table>
+        <button class="reset-btn" onclick="resetGame()">Reset</button>
     </div>
 
     <script>
-        let player = 'X'
-        const cells = document.getElementsByClassName('cell')
-        const status = document.getElementById('status')
+        let wins = 0, losses = 0, ties = 0;
+        const emojiMap = { "Rock": "✊", "Paper": "✋", "Scissors": "✌" };
 
-        function play(obj, i) {
-            if (obj.innerHTML === '') {
-                obj.innerHTML = player
-                if (checkWin(player)) {
-                    status.innerHTML = `${player} Wins!`
-                    setTimeout(reset, 1500)
-                    return
-                }
-                if (filled()) {
-                    status.innerHTML = "It's a Draw!"
-                    setTimeout(reset, 1500)
-                    return
-                }
-                player = (player === 'X') ? 'O' : 'X'
-                status.innerHTML = `Player ${player}'s Turn`
-            }
+        function play(userChoice) {
+            let compChoice = getRandom();
+            document.getElementById('user-choice').innerHTML = emojiMap[userChoice]; 
+            document.getElementById('computer-choice').innerHTML = emojiMap[compChoice]; 
+            
+            let resultText = (userChoice === compChoice) ? "It's a Tie!" : 
+                (userChoice === 'Rock' && compChoice === 'Scissors' ||
+                 userChoice === 'Paper' && compChoice === 'Rock' ||
+                 userChoice === 'Scissors' && compChoice === 'Paper') ? 'You Win!' : 'You Lose!';
+            
+            if (resultText === 'You Win!') wins++;
+            else if (resultText === 'You Lose!') losses++;
+            else ties++;
+            
+            document.getElementById('game-result').innerHTML = resultText;
+            document.getElementById('wins').innerHTML = `Wins: ${wins}`;
+            document.getElementById('losses').innerHTML = `Losses: ${losses}`;
+            document.getElementById('ties').innerHTML = `Ties: ${ties}`;
         }
 
-        function checkWin(player) {
-            const winPatterns = [
-                [0, 1, 2], [3, 4, 5], [6, 7, 8], 
-                [0, 3, 6], [1, 4, 7], [2, 5, 8], 
-                [0, 4, 8], [2, 4, 6]            
-            ]
-
-            return winPatterns.some(pattern =>
-                pattern.every(index => cells[index].innerHTML === player)
-            )
+        function resetGame() {
+            wins = losses = ties = 0;
+            document.getElementById('game-result').innerHTML = '-';
+            document.getElementById('user-choice').innerHTML = '-';
+            document.getElementById('computer-choice').innerHTML = '-';
+            document.getElementById('wins').innerHTML = `Wins: ${wins}`;
+            document.getElementById('losses').innerHTML = `Losses: ${losses}`;
+            document.getElementById('ties').innerHTML = `Ties: ${ties}`;
         }
 
-        function filled() {
-            return [...cells].every(cell => cell.innerHTML !== '')
-        }
-
-        function reset() {
-            for (let cell of cells) {
-                cell.innerHTML = ''
-            }
-            player = 'X'
-            status.innerHTML = `Player X's Turn`
+        function getRandom() {
+            return ['Rock', 'Paper', 'Scissors'][Math.floor(Math.random() * 3)];
         }
     </script>
 </body>
